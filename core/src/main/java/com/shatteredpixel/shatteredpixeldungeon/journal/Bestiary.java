@@ -297,6 +297,9 @@ public enum Bestiary {
 	}
 
 	public static int encounterCount(Class<?> cls) {
+		if (classConversions.containsKey(cls)){
+			cls = classConversions.get(cls);
+		}
 		for (Bestiary cat : values()) {
 			if (cat.encounterCount.containsKey(cls)) {
 				return cat.encounterCount.get(cls);

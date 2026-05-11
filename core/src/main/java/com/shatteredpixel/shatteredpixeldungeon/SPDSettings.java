@@ -57,6 +57,7 @@ public class SPDSettings extends GameSettings {
 	public static final String KEY_GRID 	    = "visual_grid";
 	public static final String KEY_CAMERA_FOLLOW= "camera_follow";
 	public static final String KEY_SCREEN_SHAKE = "screen_shake";
+	public static final String KEY_MOB_COMBAT_INFO = "mob_combat_info";
 	
 	public static void fullscreen( boolean value ) {
 		put( KEY_FULLSCREEN, value );
@@ -66,6 +67,14 @@ public class SPDSettings extends GameSettings {
 	
 	public static boolean fullscreen() {
 		return getBoolean( KEY_FULLSCREEN, DeviceCompat.isDesktop() );
+	}
+
+	public static void mobCombatInfo( boolean value ) {
+		put( KEY_MOB_COMBAT_INFO, value );
+	}
+
+	public static boolean mobCombatInfo() {
+		return getBoolean( KEY_MOB_COMBAT_INFO, true );
 	}
 	
 	public static void landscape( boolean value ){

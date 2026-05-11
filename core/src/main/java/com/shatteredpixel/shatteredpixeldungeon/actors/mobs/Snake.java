@@ -25,6 +25,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
+import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.SnakeSprite;
 import com.watabou.utils.Random;
@@ -48,10 +49,25 @@ public class Snake extends Mob {
 	public int damageRoll() {
 		return Random.NormalIntRange( 1, 4 );
 	}
+
+	@Override
+	protected int damageRollMin() {
+		return 1;
+	}
+
+	@Override
+	protected int damageRollMax() {
+		return 4;
+	}
 	
 	@Override
 	public int attackSkill( Char target ) {
 		return 10;
+	}
+
+	@Override
+	protected String specialAbilityInfo() {
+		return Messages.get(this, "combat_special");
 	}
 
 	private static int dodges = 0;

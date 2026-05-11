@@ -52,6 +52,16 @@ public class Rat extends Mob {
 	public int damageRoll() {
 		return Random.NormalIntRange( 1, 4 );
 	}
+
+	@Override
+	protected int damageRollMin() {
+		return 1;
+	}
+
+	@Override
+	protected int damageRollMax() {
+		return 4;
+	}
 	
 	@Override
 	public int attackSkill( Char target ) {

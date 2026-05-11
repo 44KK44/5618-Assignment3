@@ -48,6 +48,16 @@ public class Slime extends Mob {
 	public int damageRoll() {
 		return Random.NormalIntRange( 2, 5 );
 	}
+
+	@Override
+	protected int damageRollMin() {
+		return 2;
+	}
+
+	@Override
+	protected int damageRollMax() {
+		return 5;
+	}
 	
 	@Override
 	public int attackSkill( Char target ) {

@@ -23,6 +23,7 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
+import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CrabSprite;
 import com.watabou.utils.Random;
 
@@ -46,10 +47,25 @@ public class Crab extends Mob {
 	public int damageRoll() {
 		return Random.NormalIntRange( 1, 7 );
 	}
+
+	@Override
+	protected int damageRollMin() {
+		return 1;
+	}
+
+	@Override
+	protected int damageRollMax() {
+		return 7;
+	}
 	
 	@Override
 	public int attackSkill( Char target ) {
 		return 12;
+	}
+
+	@Override
+	protected String attackTypeInfo() {
+		return Messages.get(Mob.class, "combat_attack_fast_melee");
 	}
 	
 	@Override

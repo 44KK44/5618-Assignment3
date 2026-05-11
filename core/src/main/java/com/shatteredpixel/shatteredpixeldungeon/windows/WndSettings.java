@@ -220,6 +220,7 @@ public class WndSettings extends WndTabbed {
 		RenderedTextBlock title;
 		ColorBlock sep1;
 		CheckBox chkFullscreen;
+		CheckBox chkMobCombatInfo;
 		OptionSlider optScale;
 		CheckBox chkSaver;
 		RedButton btnOrientation;
@@ -252,6 +253,16 @@ public class WndSettings extends WndTabbed {
 				chkFullscreen.enable(false);
 			}
 			add(chkFullscreen);
+
+			chkMobCombatInfo = new CheckBox( Messages.get(this, "mob_combat_info") ) {
+				@Override
+				protected void onClick() {
+					super.onClick();
+					SPDSettings.mobCombatInfo(checked());
+				}
+			};
+			chkMobCombatInfo.checked(SPDSettings.mobCombatInfo());
+			add(chkMobCombatInfo);
 
 			//power saver is being slowly phased out, only show it on old (4.3-) android devices
 			// this is being phased out as the setting is useless on all but very old devices anyway
@@ -372,6 +383,9 @@ public class WndSettings extends WndTabbed {
 					bottom = chkSaver.bottom();
 				}
 			}
+
+			chkMobCombatInfo.setRect(0, bottom + GAP, width, BTN_HEIGHT);
+			bottom = chkMobCombatInfo.bottom();
 
 			if (btnOrientation != null) {
 				btnOrientation.setRect(0, bottom + GAP, width, BTN_HEIGHT);

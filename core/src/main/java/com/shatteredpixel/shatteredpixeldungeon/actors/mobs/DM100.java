@@ -61,10 +61,30 @@ public class DM100 extends Mob implements Callback {
 	public int damageRoll() {
 		return Random.NormalIntRange( 2, 8 );
 	}
+
+	@Override
+	protected int damageRollMin() {
+		return 2;
+	}
+
+	@Override
+	protected int damageRollMax() {
+		return 8;
+	}
 	
 	@Override
 	public int attackSkill( Char target ) {
 		return 11;
+	}
+
+	@Override
+	protected String attackTypeInfo() {
+		return Messages.get(Mob.class, "combat_attack_ranged_magic");
+	}
+
+	@Override
+	protected String specialAbilityInfo() {
+		return Messages.get(this, "combat_special");
 	}
 	
 	@Override

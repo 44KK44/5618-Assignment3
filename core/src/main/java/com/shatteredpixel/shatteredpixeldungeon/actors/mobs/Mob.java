@@ -25,6 +25,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
@@ -1056,11 +1057,87 @@ public abstract class Mob extends Char {
 	public String info(){
 		String desc = description();
 
+		if (SPDSettings.mobCombatInfo() && Bestiary.encounterCount(getClass()) > 0){
+			desc += combatInfo();
+		}
+
 		for (Buff b : buffs(ChampionEnemy.class)){
 			desc += "\n\n_" + Messages.titleCase(b.name()) + "_\n" + b.desc();
 		}
 
 		return desc;
+	}
+
+	protected String combatInfo(){
+		String info = "\n\n_" + Messages.get(Mob.class, "combat_info") + "_";
+
+		int minDamage = damageRollMin();
+		int maxDamage = damageRollMax();
+		if (minDamage >= 0 && maxDamage >= minDamage){
+			info += "\n" + Messages.get(Mob.class, "combat_damage", minDamage, maxDamage);
+		} else {
+			info += "\n" + Messages.get(Mob.class, "combat_damage_unknown");
+		}
+
+		int hitChance = estimatedHitChance(Dungeon.hero);
+		if (hitChance >= 0){
+			info += "\n" + Messages.get(Mob.class, "combat_hit", hitChance);
+			info += "\n" + Messages.get(Mob.class, "combat_miss", 100 - hitChance);
+		}
+
+		String attackInfo = attackTypeInfo();
+		if (attackInfo != null && attackInfo.length() > 0){
+			info += "\n" + Messages.get(Mob.class, "combat_attack", attackInfo);
+		}
+
+		String specialInfo = specialAbilityInfo();
+		if (specialInfo != null && specialInfo.length() > 0){
+			info += "\n" + Messages.get(Mob.class, "combat_special", specialInfo);
+		}
+
+		return info;
+	}
+
+	protected int damageRollMin(){
+		return -1;
+	}
+
+	protected int damageRollMax(){
+		return -1;
+	}
+
+	protected String attackTypeInfo(){
+		return Messages.get(Mob.class, "combat_attack_melee");
+	}
+
+	protected String specialAbilityInfo(){
+		return null;
+	}
+
+	private int estimatedHitChance(Char defender){
+		if (defender == null){
+			return -1;
+		}
+
+		float acuStat = attackSkill(defender);
+		float defStat = defender.defenseSkill(this);
+
+		if (acuStat <= 0 || defStat < 0){
+			return -1;
+		} else if (defStat == 0 || acuStat >= INFINITE_ACCURACY){
+			return 100;
+		} else if (defStat >= INFINITE_EVASION){
+			return 0;
+		}
+
+		float chance;
+		if (acuStat >= defStat){
+			chance = 1f - defStat / (2f * acuStat);
+		} else {
+			chance = acuStat / (2f * defStat);
+		}
+
+		return Math.max(0, Math.min(100, Math.round(chance * 100f)));
 	}
 	
 	public void notice() {
@@ -1475,4 +1552,3 @@ public abstract class Mob extends Char {
 		heldAllies.clear();
 	}
 }
-
