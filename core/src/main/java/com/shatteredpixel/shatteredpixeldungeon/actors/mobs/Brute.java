@@ -60,6 +60,16 @@ public class Brute extends Mob {
 				Random.NormalIntRange( 15, 40 ) :
 				Random.NormalIntRange( 5, 25 );
 	}
+
+	@Override
+	protected int damageRollMin() {
+		return buff(BruteRage.class) != null ? 15 : 5;
+	}
+
+	@Override
+	protected int damageRollMax() {
+		return buff(BruteRage.class) != null ? 40 : 25;
+	}
 	
 	@Override
 	public int attackSkill( Char target ) {

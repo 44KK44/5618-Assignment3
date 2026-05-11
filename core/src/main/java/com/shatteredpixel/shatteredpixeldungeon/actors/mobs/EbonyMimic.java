@@ -95,6 +95,16 @@ public class EbonyMimic extends Mimic {
 	}
 
 	@Override
+	protected int damageRollMin() {
+		return alignment == Alignment.NEUTRAL ? super.damageRollMin()*2 : super.damageRollMin();
+	}
+
+	@Override
+	protected int damageRollMax() {
+		return alignment == Alignment.NEUTRAL ? super.damageRollMax()*2 : super.damageRollMax();
+	}
+
+	@Override
 	protected void generatePrize( boolean useDecks ) {
 		super.generatePrize( useDecks );
 		//add one extra random loot item, on top of the one granted by mimic tooth

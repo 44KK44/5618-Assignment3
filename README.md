@@ -203,7 +203,7 @@ By default, the damage methods return `-1`, which means the UI displays damage a
 
 Hit chance is estimated in `Mob.estimatedHitChance(Char defender)`. It uses the same conceptual relationship as the game's attack resolution: monster accuracy comes from `attackSkill(defender)`, and hero evasion comes from `defender.defenseSkill(this)`. The result is converted into a percentage and clamped to `0-100`. Special cases are handled for zero defense, infinite accuracy, and infinite evasion.
 
-Several early or representative monsters override the helper methods so their information is more precise:
+Most monsters with a deterministic damage formula override these helper methods so their information is more precise:
 
 - `Rat` adds `1-4` damage.
 - `Gnoll` adds `2-5` damage.
@@ -214,6 +214,9 @@ Several early or representative monsters override the helper methods so their in
 - `DM100` adds `2-8` melee damage, ranged magic attack type, and a lightning-zap special note.
 - `Guard` adds `4-12` damage, chain-pull attack type, and different special text depending on whether the chain has already been used.
 - `GnollGuard` adds reach-based damage information, reach melee attack type, and a special note about its spear range.
+- Later monsters such as skeletons, thieves, bats, brutes, shamans, spinners, DM-200/DM-201, ghouls, elementals, warlocks, monks, golems, succubi, evil eyes, scorpios, bosses, crystal enemies, and Yog fists also expose their original `damageRoll()` ranges.
+
+For enemies whose damage changes with the current game state, the displayed range is calculated from that state instead of using a static value. Examples include brutes changing from normal to enraged damage, Goo changing with low health and pump-up attacks, piranhas scaling with dungeon depth, wraiths scaling with their stored level, and mimics scaling with their mimic level and hidden/revealed state. Enemies whose damage is determined by external equipment or special mechanics use descriptive damage labels instead, such as weapon-based damage for statues or no direct attack for summoners.
 
 All display strings are stored in the normal Shattered Pixel Dungeon message system rather than hard-coded in Java. Generic labels such as `combat_info`, `combat_damage`, `combat_damage_hidden`, `combat_hit`, `combat_hit_hidden`, and `combat_attack_ranged_magic` are stored under `actors.mobs.mob.*`. Monster-specific special notes are stored under the relevant monster message keys, such as `actors.mobs.dm100.combat_special`.
 

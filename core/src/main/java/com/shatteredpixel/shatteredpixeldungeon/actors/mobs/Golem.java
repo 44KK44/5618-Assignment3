@@ -62,6 +62,16 @@ public class Golem extends Mob {
 	public int damageRoll() {
 		return Random.NormalIntRange( 25, 30 );
 	}
+
+	@Override
+	protected int damageRollMin() {
+		return 25;
+	}
+
+	@Override
+	protected int damageRollMax() {
+		return 30;
+	}
 	
 	@Override
 	public int attackSkill( Char target ) {

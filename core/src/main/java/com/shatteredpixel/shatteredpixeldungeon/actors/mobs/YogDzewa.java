@@ -157,6 +157,16 @@ public class YogDzewa extends Mob {
 	}
 
 	@Override
+	protected int damageRollMin() {
+		return Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 30 : 20;
+	}
+
+	@Override
+	protected int damageRollMax() {
+		return Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 50 : 30;
+	}
+
+	@Override
 	protected boolean act() {
 		//char logic
 		if (fieldOfView == null || fieldOfView.length != Dungeon.level.length()){

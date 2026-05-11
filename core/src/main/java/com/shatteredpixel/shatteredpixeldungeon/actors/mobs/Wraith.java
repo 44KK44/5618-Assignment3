@@ -76,6 +76,16 @@ public class Wraith extends Mob {
 	public int damageRoll() {
 		return Random.NormalIntRange( 1 + level/2, 2 + level );
 	}
+
+	@Override
+	protected int damageRollMin() {
+		return 1 + level/2;
+	}
+
+	@Override
+	protected int damageRollMax() {
+		return 2 + level;
+	}
 	
 	@Override
 	public int attackSkill( Char target ) {

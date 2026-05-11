@@ -111,6 +111,16 @@ public class Thief extends Mob {
 		Dungeon.LimitedDrops.THEIF_MISC.count++;
 		return super.createLoot();
 	}
+	@Override
+	protected int damageRollMin() {
+		return 1;
+	}
+
+	@Override
+	protected int damageRollMax() {
+		return 10;
+	}
+
 
 	@Override
 	public int attackSkill( Char target ) {

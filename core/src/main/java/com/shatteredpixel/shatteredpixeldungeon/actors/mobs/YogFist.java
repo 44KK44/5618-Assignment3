@@ -186,6 +186,16 @@ public abstract class YogFist extends Mob {
 	}
 
 	@Override
+	protected int damageRollMin() {
+		return 18;
+	}
+
+	@Override
+	protected int damageRollMax() {
+		return 36;
+	}
+
+	@Override
 	public int drRoll() {
 		return super.drRoll() + Random.NormalIntRange(0, 15);
 	}
@@ -460,6 +470,16 @@ public abstract class YogFist extends Mob {
 		@Override
 		public int damageRoll() {
 			return Random.NormalIntRange( 22, 44 );
+		}
+
+		@Override
+		protected int damageRollMin() {
+			return 22;
+		}
+
+		@Override
+		protected int damageRollMax() {
+			return 44;
 		}
 
 		@Override

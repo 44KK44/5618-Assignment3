@@ -67,6 +67,16 @@ public class Ghoul extends Mob {
 	}
 
 	@Override
+	protected int damageRollMin() {
+		return 16;
+	}
+
+	@Override
+	protected int damageRollMax() {
+		return 22;
+	}
+
+	@Override
 	public int attackSkill( Char target ) {
 		return 24;
 	}

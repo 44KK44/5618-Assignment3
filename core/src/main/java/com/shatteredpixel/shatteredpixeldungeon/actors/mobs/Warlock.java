@@ -65,6 +65,16 @@ public class Warlock extends Mob implements Callback {
 	public int damageRoll() {
 		return Random.NormalIntRange( 12, 18 );
 	}
+
+	@Override
+	protected int damageRollMin() {
+		return 12;
+	}
+
+	@Override
+	protected int damageRollMax() {
+		return 18;
+	}
 	
 	@Override
 	public int attackSkill( Char target ) {

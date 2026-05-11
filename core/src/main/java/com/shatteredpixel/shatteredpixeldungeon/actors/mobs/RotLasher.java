@@ -100,6 +100,16 @@ public class RotLasher extends Mob {
 	}
 
 	@Override
+	protected int damageRollMin() {
+		return 10;
+	}
+
+	@Override
+	protected int damageRollMax() {
+		return 20;
+	}
+
+	@Override
 	public int attackSkill( Char target ) {
 		return 25;
 	}

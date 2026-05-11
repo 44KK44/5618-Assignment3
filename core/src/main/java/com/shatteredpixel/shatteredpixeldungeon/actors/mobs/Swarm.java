@@ -118,6 +118,16 @@ public class Swarm extends Mob {
 		
 		return super.defenseProc(enemy, damage);
 	}
+	@Override
+	protected int damageRollMin() {
+		return 1;
+	}
+
+	@Override
+	protected int damageRollMax() {
+		return 4;
+	}
+
 	
 	@Override
 	public int attackSkill( Char target ) {

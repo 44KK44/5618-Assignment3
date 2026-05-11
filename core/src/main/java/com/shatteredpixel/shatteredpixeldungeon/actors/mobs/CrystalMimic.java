@@ -105,6 +105,30 @@ public class CrystalMimic extends Mimic {
 		}
 	}
 
+	@Override
+	protected int damageRollMin() {
+		if (alignment == Alignment.NEUTRAL) {
+			alignment = Alignment.ENEMY;
+			int min = super.damageRollMin();
+			alignment = Alignment.NEUTRAL;
+			return min;
+		} else {
+			return super.damageRollMin();
+		}
+	}
+
+	@Override
+	protected int damageRollMax() {
+		if (alignment == Alignment.NEUTRAL) {
+			alignment = Alignment.ENEMY;
+			int max = super.damageRollMax();
+			alignment = Alignment.NEUTRAL;
+			return max;
+		} else {
+			return super.damageRollMax();
+		}
+	}
+
 	public void stopHiding(){
 		state = FLEEING;
 		if (sprite != null) sprite.idle();

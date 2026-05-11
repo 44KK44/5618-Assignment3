@@ -235,6 +235,16 @@ public class Mimic extends Mob {
 	}
 
 	@Override
+	protected int damageRollMin() {
+		return alignment == Alignment.NEUTRAL ? 2 + 2*level : 1 + level;
+	}
+
+	@Override
+	protected int damageRollMax() {
+		return 2 + 2*level;
+	}
+
+	@Override
 	public int drRoll() {
 		return super.drRoll() + Random.NormalIntRange(0, 1 + level/2);
 	}

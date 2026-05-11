@@ -151,6 +151,16 @@ public class GnollGeomancer extends Mob {
 	}
 
 	@Override
+	protected int damageRollMin() {
+		return 3;
+	}
+
+	@Override
+	protected int damageRollMax() {
+		return 6;
+	}
+
+	@Override
 	public int attackSkill( Char target ) {
 		return 20;
 	}

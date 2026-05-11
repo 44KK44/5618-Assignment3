@@ -48,6 +48,16 @@ public class DM201 extends DM200 {
 		return Random.NormalIntRange( 15, 25 );
 	}
 
+	@Override
+	protected int damageRollMin() {
+		return 15;
+	}
+
+	@Override
+	protected int damageRollMax() {
+		return 25;
+	}
+
 	private boolean threatened = false;
 
 	@Override

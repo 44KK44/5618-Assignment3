@@ -102,6 +102,16 @@ public class Tengu extends Mob {
 	public int damageRoll() {
 		return Random.NormalIntRange( 6, 12 );
 	}
+
+	@Override
+	protected int damageRollMin() {
+		return 6;
+	}
+
+	@Override
+	protected int damageRollMax() {
+		return 12;
+	}
 	
 	@Override
 	public int attackSkill( Char target ) {

@@ -88,7 +88,12 @@ public class Statue extends Mob {
 	public int damageRoll() {
 		return weapon.damageRoll(this);
 	}
-	
+
+	@Override
+	protected String combatDamageInfo() {
+		return Messages.get(Mob.class, "combat_damage_by_weapon");
+	}
+
 	@Override
 	public int attackSkill( Char target ) {
 		return (int)((9 + Dungeon.depth) * weapon.accuracyFactor( this, target ));

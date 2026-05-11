@@ -122,6 +122,16 @@ public class Skeleton extends Mob {
 		Dungeon.LimitedDrops.SKELE_WEP.count++;
 		return super.createLoot();
 	}
+	@Override
+	protected int damageRollMin() {
+		return 2;
+	}
+
+	@Override
+	protected int damageRollMax() {
+		return 10;
+	}
+
 
 	@Override
 	public int attackSkill( Char target ) {

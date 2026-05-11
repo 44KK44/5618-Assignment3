@@ -74,6 +74,16 @@ public class Eye extends Mob {
 	}
 
 	@Override
+	protected int damageRollMin() {
+		return 20;
+	}
+
+	@Override
+	protected int damageRollMax() {
+		return 30;
+	}
+
+	@Override
 	public int attackSkill( Char target ) {
 		return 30;
 	}

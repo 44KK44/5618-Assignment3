@@ -148,6 +148,16 @@ public class Pylon extends Mob {
 		}
 	}
 
+	@Override
+	protected int damageRollMin() {
+		return 10;
+	}
+
+	@Override
+	protected int damageRollMax() {
+		return 20;
+	}
+
 	public void activate(){
 		alignment = Alignment.ENEMY;
 		state = HUNTING; //so allies know to attack it

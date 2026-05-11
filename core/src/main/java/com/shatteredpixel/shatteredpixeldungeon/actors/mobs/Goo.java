@@ -81,6 +81,18 @@ public class Goo extends Mob {
 	}
 
 	@Override
+	protected int damageRollMin() {
+		int min = 1;
+		return pumpedUp > 0 ? min*3 : min;
+	}
+
+	@Override
+	protected int damageRollMax() {
+		int max = (HP*2 <= HT) ? 12 : 8;
+		return pumpedUp > 0 ? max*3 : max;
+	}
+
+	@Override
 	public int attackSkill( Char target ) {
 		int attack = 10;
 		if (HP*2 <= HT) attack = 15;

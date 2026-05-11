@@ -79,6 +79,16 @@ public class CrystalWisp extends Mob{
 	}
 
 	@Override
+	protected int damageRollMin() {
+		return 5;
+	}
+
+	@Override
+	protected int damageRollMax() {
+		return 10;
+	}
+
+	@Override
 	public int attackSkill( Char target ) {
 		return 18;
 	}

@@ -100,6 +100,16 @@ public class GnollSapper extends Mob {
 	}
 
 	@Override
+	protected int damageRollMin() {
+		return 1;
+	}
+
+	@Override
+	protected int damageRollMax() {
+		return 6;
+	}
+
+	@Override
 	public int attackSkill( Char target ) {
 		return 18;
 	}

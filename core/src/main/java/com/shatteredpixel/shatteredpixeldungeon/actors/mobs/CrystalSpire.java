@@ -205,6 +205,16 @@ public class CrystalSpire extends Mob {
 		return true;
 	}
 
+	@Override
+	protected int damageRollMin() {
+		return 6;
+	}
+
+	@Override
+	protected int damageRollMax() {
+		return 15;
+	}
+
 	public static class SpireSpike{}
 
 	private void diamondAOEAttack(){

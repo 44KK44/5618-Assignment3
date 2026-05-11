@@ -1071,13 +1071,7 @@ public abstract class Mob extends Char {
 	protected String combatInfo(){
 		String info = "\n\n_" + Messages.get(Mob.class, "combat_info") + "_";
 
-		int minDamage = damageRollMin();
-		int maxDamage = damageRollMax();
-		if (minDamage >= 0 && maxDamage >= minDamage){
-			info += "\n" + Messages.get(Mob.class, "combat_damage", minDamage, maxDamage);
-		} else {
-			info += "\n" + Messages.get(Mob.class, "combat_damage_unknown");
-		}
+		info += "\n" + combatDamageInfo();
 
 		int hitChance = estimatedHitChance(Dungeon.hero);
 		if (hitChance >= 0){
@@ -1096,6 +1090,16 @@ public abstract class Mob extends Char {
 		}
 
 		return info;
+	}
+
+	protected String combatDamageInfo(){
+		int minDamage = damageRollMin();
+		int maxDamage = damageRollMax();
+		if (minDamage >= 0 && maxDamage >= minDamage){
+			return Messages.get(Mob.class, "combat_damage", minDamage, maxDamage);
+		} else {
+			return Messages.get(Mob.class, "combat_damage_unknown");
+		}
 	}
 
 	private String hiddenCombatInfo(){

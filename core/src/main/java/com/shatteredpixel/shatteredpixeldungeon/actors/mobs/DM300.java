@@ -96,6 +96,16 @@ public class DM300 extends Mob {
 	}
 
 	@Override
+	protected int damageRollMin() {
+		return 15;
+	}
+
+	@Override
+	protected int damageRollMax() {
+		return 25;
+	}
+
+	@Override
 	public int attackSkill( Char target ) {
 		return 20;
 	}

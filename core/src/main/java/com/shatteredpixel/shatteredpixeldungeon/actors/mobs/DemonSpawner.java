@@ -67,6 +67,11 @@ public class DemonSpawner extends Mob {
 	}
 
 	@Override
+	protected String combatDamageInfo() {
+		return Messages.get(Mob.class, "combat_damage_no_direct");
+	}
+
+	@Override
 	public void beckon(int cell) {
 		//do nothing
 	}

@@ -89,6 +89,16 @@ public class CrystalGuardian extends Mob{
 	}
 
 	@Override
+	protected int damageRollMin() {
+		return 10;
+	}
+
+	@Override
+	protected int damageRollMax() {
+		return 16;
+	}
+
+	@Override
 	public int attackSkill( Char target ) {
 		return 20;
 	}

@@ -59,6 +59,16 @@ public class DM200 extends Mob {
 	public int damageRoll() {
 		return Random.NormalIntRange( 10, 25 );
 	}
+	@Override
+	protected int damageRollMin() {
+		return 10;
+	}
+
+	@Override
+	protected int damageRollMax() {
+		return 25;
+	}
+
 
 	@Override
 	public int attackSkill( Char target ) {

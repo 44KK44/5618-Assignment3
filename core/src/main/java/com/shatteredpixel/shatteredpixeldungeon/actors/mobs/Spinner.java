@@ -60,6 +60,16 @@ public class Spinner extends Mob {
 	public int damageRoll() {
 		return Random.NormalIntRange(10, 20);
 	}
+	@Override
+	protected int damageRollMin() {
+		return 10;
+	}
+
+	@Override
+	protected int damageRollMax() {
+		return 20;
+	}
+
 
 	@Override
 	public int attackSkill(Char target) {

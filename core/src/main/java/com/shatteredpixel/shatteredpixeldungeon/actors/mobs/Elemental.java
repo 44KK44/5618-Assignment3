@@ -87,6 +87,26 @@ public abstract class Elemental extends Mob {
 			return Random.NormalIntRange(5*regionScale, 5 + 5*regionScale);
 		}
 	}
+
+	@Override
+	protected int damageRollMin() {
+		if (!summonedALly) {
+			return 20;
+		} else {
+			int regionScale = Math.max(2, (1 + Dungeon.scalingDepth()/5));
+			return 5*regionScale;
+		}
+	}
+
+	@Override
+	protected int damageRollMax() {
+		if (!summonedALly) {
+			return 25;
+		} else {
+			int regionScale = Math.max(2, (1 + Dungeon.scalingDepth()/5));
+			return 5 + 5*regionScale;
+		}
+	}
 	
 	@Override
 	public int attackSkill( Char target ) {
@@ -394,6 +414,16 @@ public abstract class Elemental extends Mob {
 			} else {
 				return super.damageRoll();
 			}
+		}
+
+		@Override
+		protected int damageRollMin() {
+			return !summonedALly ? 10 : super.damageRollMin();
+		}
+
+		@Override
+		protected int damageRollMax() {
+			return !summonedALly ? 12 : super.damageRollMax();
 		}
 
 		@Override

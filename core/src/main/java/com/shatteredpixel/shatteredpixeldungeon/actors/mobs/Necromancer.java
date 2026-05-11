@@ -128,6 +128,11 @@ public class Necromancer extends Mob {
 		return false;
 	}
 
+	@Override
+	protected String combatDamageInfo() {
+		return Messages.get(Mob.class, "combat_damage_no_direct");
+	}
+
 	private static final String SUMMONING = "summoning";
 	private static final String FIRST_SUMMON = "first_summon";
 	private static final String SUMMONING_POS = "summoning_pos";

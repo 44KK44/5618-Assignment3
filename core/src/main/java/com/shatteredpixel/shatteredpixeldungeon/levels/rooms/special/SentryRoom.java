@@ -307,6 +307,16 @@ public class SentryRoom extends SpecialRoom {
 		}
 
 		@Override
+		protected int damageRollMin() {
+			return 2 + Dungeon.depth / 2;
+		}
+
+		@Override
+		protected int damageRollMax() {
+			return 4 + Dungeon.depth;
+		}
+
+		@Override
 		public int defenseSkill( Char enemy ) {
 			return INFINITE_EVASION;
 		}

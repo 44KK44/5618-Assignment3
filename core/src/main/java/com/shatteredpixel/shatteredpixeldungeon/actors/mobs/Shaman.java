@@ -58,6 +58,16 @@ public abstract class Shaman extends Mob {
 	public int damageRoll() {
 		return Random.NormalIntRange( 5, 10 );
 	}
+
+	@Override
+	protected int damageRollMin() {
+		return 5;
+	}
+
+	@Override
+	protected int damageRollMax() {
+		return 10;
+	}
 	
 	@Override
 	public int attackSkill( Char target ) {
