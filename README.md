@@ -155,22 +155,34 @@ SPDSettings.mobCombatInfo(checked());
 
 The checkbox is laid out with the existing display settings, directly after the fullscreen/power-saver area. This keeps the feature discoverable without creating a new settings page.
 
-The information display itself is added in `Mob.info()`. The original method returned the monster's description and champion modifier descriptions. The assignment version keeps that behaviour, but inserts combat information when both conditions are true:
+The information display itself is added in `Mob.info()`. The original method returned the monster's description and champion modifier descriptions. The assignment version keeps that behaviour, but inserts a combat information section whenever the setting is enabled:
 
 ```java
-SPDSettings.mobCombatInfo() && Bestiary.encounterCount(getClass()) > 0
+SPDSettings.mobCombatInfo()
 ```
 
-This means combat information is shown only when:
+The exact values inside that section use progressive disclosure:
 
-- the player has enabled the setting
-- the monster has been encountered at least once
+- if the player has enabled the setting and the monster type has already been unlocked through the bestiary encounter count, the section shows real combat values
+- if the player has enabled the setting but the monster type has not been unlocked yet, the section still appears, but each value is hidden with `?`
+- if the player turns the setting off, the combat information section is not shown at all
 
-That second condition prevents the feature from revealing combat information for completely unknown monsters. The information becomes available after the player has actually encountered that monster type, which keeps the feature closer to the existing bestiary/discovery design.
+For example, a locked monster still shows the player's usual description plus the combat-info structure:
+
+```text
+Combat information
+Damage: ?
+Estimated hit chance against you: ?
+Estimated miss chance against you: ?
+Attack: ?
+Special: ?
+```
+
+This prevents the feature from revealing exact information for unknown monsters while still teaching the player what information will become available later. The result is closer to a progressive bestiary: the UI is self-descriptive from the first inspection, but precise damage, hit chance, attack type, and special ability details are only revealed after the monster has been unlocked through play.
 
 `Bestiary.encounterCount(Class<?> cls)` was also adjusted to apply existing class conversions before looking up encounter counts. Some enemies use internal classes for variants or summons, and the bestiary already maps those classes back to their normal catalog entries. Applying the same conversion here makes combat-info unlocks consistent with the bestiary.
 
-The generated combat information is built by `Mob.combatInfo()`. It can include:
+The unlocked combat information is built by `Mob.combatInfo()`. It can include:
 
 - damage range
 - estimated hit chance against the current hero
@@ -187,7 +199,7 @@ protected String attackTypeInfo()
 protected String specialAbilityInfo()
 ```
 
-By default, the damage methods return `-1`, which means the UI displays damage as "varies" for monsters that do not provide a fixed range. The default attack type is melee. Special ability text is omitted unless a monster overrides `specialAbilityInfo()`.
+By default, the damage methods return `-1`, which means the UI displays damage as "varies" for monsters that do not provide a fixed range. The default attack type is melee. Special ability text is omitted unless a monster overrides `specialAbilityInfo()`. Locked monsters use `Mob.hiddenCombatInfo()` instead, which reuses the same localized labels but replaces the values with `?`.
 
 Hit chance is estimated in `Mob.estimatedHitChance(Char defender)`. It uses the same conceptual relationship as the game's attack resolution: monster accuracy comes from `attackSkill(defender)`, and hero evasion comes from `defender.defenseSkill(this)`. The result is converted into a percentage and clamped to `0-100`. Special cases are handled for zero defense, infinite accuracy, and infinite evasion.
 
@@ -203,7 +215,7 @@ Several early or representative monsters override the helper methods so their in
 - `Guard` adds `4-12` damage, chain-pull attack type, and different special text depending on whether the chain has already been used.
 - `GnollGuard` adds reach-based damage information, reach melee attack type, and a special note about its spear range.
 
-All display strings are stored in the normal Shattered Pixel Dungeon message system rather than hard-coded in Java. Generic labels such as `combat_info`, `combat_damage`, `combat_hit`, and `combat_attack_ranged_magic` are stored under `actors.mobs.mob.*`. Monster-specific special notes are stored under the relevant monster message keys, such as `actors.mobs.dm100.combat_special`.
+All display strings are stored in the normal Shattered Pixel Dungeon message system rather than hard-coded in Java. Generic labels such as `combat_info`, `combat_damage`, `combat_damage_hidden`, `combat_hit`, `combat_hit_hidden`, and `combat_attack_ranged_magic` are stored under `actors.mobs.mob.*`. Monster-specific special notes are stored under the relevant monster message keys, such as `actors.mobs.dm100.combat_special`.
 
 Because the text is routed through `Messages.get(...)`, the feature follows the existing localization pattern. The same combat-info keys were added to the language-specific `actors_*.properties` and `windows_*.properties` files so the game can resolve the new labels consistently across language packs.
 

@@ -1057,8 +1057,8 @@ public abstract class Mob extends Char {
 	public String info(){
 		String desc = description();
 
-		if (SPDSettings.mobCombatInfo() && Bestiary.encounterCount(getClass()) > 0){
-			desc += combatInfo();
+		if (SPDSettings.mobCombatInfo()){
+			desc += Bestiary.encounterCount(getClass()) > 0 ? combatInfo() : hiddenCombatInfo();
 		}
 
 		for (Buff b : buffs(ChampionEnemy.class)){
@@ -1094,6 +1094,19 @@ public abstract class Mob extends Char {
 		if (specialInfo != null && specialInfo.length() > 0){
 			info += "\n" + Messages.get(Mob.class, "combat_special", specialInfo);
 		}
+
+		return info;
+	}
+
+	private String hiddenCombatInfo(){
+		String unknown = "?";
+		String info = "\n\n_" + Messages.get(Mob.class, "combat_info") + "_";
+
+		info += "\n" + Messages.get(Mob.class, "combat_damage_hidden", unknown);
+		info += "\n" + Messages.get(Mob.class, "combat_hit_hidden", unknown);
+		info += "\n" + Messages.get(Mob.class, "combat_miss_hidden", unknown);
+		info += "\n" + Messages.get(Mob.class, "combat_attack", unknown);
+		info += "\n" + Messages.get(Mob.class, "combat_special", unknown);
 
 		return info;
 	}
