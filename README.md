@@ -222,6 +222,27 @@ All display strings are stored in the normal Shattered Pixel Dungeon message sys
 
 Because the text is routed through `Messages.get(...)`, the feature follows the existing localization pattern. The same combat-info keys were added to the language-specific `actors_*.properties` and `windows_*.properties` files so the game can resolve the new labels consistently across language packs.
 
+### Team and Project Management
+
+The project was managed through a feature-based Git workflow rather than by editing the same files directly on `main`. We split the work by feature ownership, then used GitHub issues, branches, code review, and merge checks to keep each change traceable from its motivation to its implementation and validation.
+
+Kaiyi coordinated the repository workflow. This included Git management, reviewing code before integration, checking that feature branches matched the assignment goals, and merging completed work into the main branch. Having one person coordinate integration helped reduce conflicting edits in shared files such as `Mob.java`, `Dungeon.java`, settings code, and localization resources. It also meant that each feature was reviewed in context before being combined with the rest of the project.
+
+The feature implementation responsibilities were:
+
+- Kaiyi implemented the mob behaviour logging feature, including the `MobLogger` utility and the hooks in mob lifecycle, alert, target-selection, and AI state-transition logic.
+- Zhenfan implemented the monster combat information feature, including the inspection/bestiary display flow, combat-stat calculation helpers, settings integration, and localization strings.
+- Kyla implemented the save-file checksum validation feature, including checksum generation, checksum verification, and integration with the save/load flow.
+
+Testing responsibilities were assigned separately from the main implementation work so that features were checked by someone other than, or in addition to, the original implementer:
+
+- Shih-Wei tested the combat information feature and the checksum validation feature.
+- Yueyi tested the mob logging feature.
+
+This structure was chosen for quality control, not just task division. Feature ownership made responsibilities clear, while separate testing created a second pass over the behaviour and helped catch gaps that may not be obvious to the implementer. Code review and branch merging also made the workflow auditable: each change could be connected to a feature goal, inspected before integration, and verified after it was merged.
+
+Git was therefore used as part of the software quality process rather than only as file storage. Branches separated parallel work, commit history recorded the evolution of each feature, pull-request style review supported maintainability, and final integration checks helped confirm that the three features still worked together in the same v3.0.2 codebase.
+
 ### Validation
 
 The project was compiled and run through the desktop target after the feature merge:
